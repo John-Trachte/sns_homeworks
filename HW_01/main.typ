@@ -230,7 +230,6 @@ Evaluate each integral:
 
 #v(15pt)
 
-// TODO - check
 $delta(tau)$ has a value only when $tau = 0$. 
 
 $integral_(-infinity)^infinity delta(tau) x(t - tau) d tau$
@@ -254,7 +253,6 @@ $= x(t) dot 1$
 
 #v(15pt)
 
-// TODO - check
 $delta(t - tau)$ has a value only when $tau = t$. 
 
 $integral_(-infinity)^infinity x(tau) delta(t - tau) d tau$
@@ -276,7 +274,6 @@ $= x(t) dot 1$
 
 #v(15pt)
 
-// TODO - check
 $delta(t)$ has a value only when $t = 0$. 
 
 $integral_(-infinity)^infinity delta(t) e^(-j omega t) d t$
@@ -302,7 +299,6 @@ $= 1 dot 1$
 
 #v(15pt)
 
-// TODO - check
 $delta(2t - 3)$ has a value only when $2t = 3$, or $t = 1.5$.
 
 $integral_(-infinity)^infinity delta(2t - 3) sin(pi t) d t$
@@ -328,7 +324,6 @@ $= sin(pi dot 1.5)$
 
 #v(15pt)
 
-// TODO - check
 $delta(t + 3)$ has a value only when $t = -3$.
 
 $integral_(-infinity)^infinity delta(t + 3) e^(-t) d t$
@@ -352,7 +347,6 @@ $= e^3$
 
 #v(15pt)
 
-// TODO - check
 $delta(1 - t)$ has a value only when $t = 1$.
 
 $integral_(-infinity)^infinity (t^3 + 4) delta(1 - t) d t$
