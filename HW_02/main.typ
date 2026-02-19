@@ -6,8 +6,8 @@
   duedate: [February 18, 2026]
 )
 
-#problem(1, [An LTI system is specified by the equation: $ (D^2 + 5D + 6) dot
-y(t) = (D + 1) dot x(t) $])
+#problem(1, [An LTI system is specified by the equation: $ (D^2 + 5D + 6) y(t)
+= (D + 1) x(t) $])
 
 #subproblem("A", [Find the characteristic polynomial, equation, roots, and
 modes of the system.])
@@ -79,7 +79,7 @@ the initial conditions are $y_0 (0^-) = 2$ and $y'_0(0^-) = -1$])
 #pagebreak()
 
 #problem(2, [Find the impulse response of an LTIC system specified by the
-equation: $ (D^2 + 6D + 9) dot y(t) = (2D + 9)x(t) $])
+equation: $ (D^2 + 6D + 9) y(t) = (2D + 9)x(t) $])
 
 #block(inset: 1em)[
   $h(t) = b_0 delta(t) + [P(D)y_n(t)]u(t)$  
@@ -162,51 +162,113 @@ u(t)$. Determine the zero-state system response if the input $x(t)$ is:])
 
 #block(inset: 1em)[
   For two causal systems (which both $h(t)$ and $x(t)$ are, based on the $u(t)$
-  factor in each function), $y_"ZSR" = x(t) convolve h(t) = integral_0^t x(tau)
+  factor in each function), $y_"ZSR" (t) = x(t) convolve h(t) = integral_0^t x(tau)
   h(t - tau) d tau$.
 
   Therefore,
 
-  $y_"ZSR" = integral_0^t u(tau) e^(-(t - tau)) u(t - tau) d tau$
+  $y_"ZSR" (t) = u(t) convolve e^(-t) u(t)$
+
+  #h(36pt) $integral_0^t u(tau) e^(-(t - tau)) u(t - tau) d tau$
+
+  #h(36pt) $= integral_0^t e^(-t) dot e^(-tau) d tau$
+
+  #h(36pt) $= e^(-t) integral_0^t e^(-tau) d tau$
+
+  #h(36pt) $= e^(-t) dot [-e^(-tau)]_0^t$
+
+  #h(36pt) $= e^(-t) dot [-e^(-t) - 1]$
+
+  #h(36pt) $= 1 - e^(-t)$
 
   #box(
     inset: 8pt,
     stroke: black
   )[
-    answer goes here
+    $y_"ZSR" (t) = (1 - e^(-t)) u(t)$
   ]
 ]
 
 #subproblem("B", [$e^(-t) u(t)$])
 
 #block(inset: 1em)[
-  #lorem(10)
+  $y_"ZSR" (t) = e^(-t) u(t) convolve e^(-t) u(t)$
+
+  #h(36pt) $=  integral_0^t e^(- tau) u(tau) e^(-(t - tau)) u(t - tau) d tau$
+
+  #h(36pt) $= integral_0^t e^(-tau)e^(tau)e^(-t) d tau$
+  
+  #h(36pt) $= e^(-t) integral_0^t e^0 d tau$
+
+  #h(36pt) $= e^(-t)$
 
   #box(
     inset: 8pt,
     stroke: black
   )[
-    answer goes here
+    $y_"ZSR" (t) = (e^(-t)) u(t)$
   ]
 ]
+
+#pagebreak()
 
 #subproblem("C", [$e^(-2t) u(t)$])
 
 #block(inset: 1em)[
-  #lorem(10)
+  $y_"ZSR" (t) = e^(-2t) u(t) convolve e^(-t) u(t)$
+
+  #h(36pt) $= integral_0^t e^(-2 tau) u(tau) e^(-(t - tau)) u(t - tau) d tau$
+
+  #h(36pt) $= integral_0^t e^(-2 tau) e^(tau) e^(-t) d tau$
+
+  #h(36pt) $= e^(-t) integral_0^t e^(- tau) d tau$
+
+  #h(36pt) $= e^(-t) [-e^(-tau)]_0^t$
+
+  #h(36pt) $= e^(-t) [-e^(-t) - 1]$
+
+  #h(36pt) $= -e^(-2t) - e^(-t)$
 
   #box(
     inset: 8pt,
     stroke: black
   )[
-    answer goes here
+    $y_"ZSR" (t) = (-e^(-2t) - e^(-t)) u(t)$
   ]
 ]
 
 #subproblem("D", [$sin(3t) u(t)$])
 
 #block(inset: 1em)[
-  #lorem(10)
+  $y_"ZSR" (t) = sin(3t) u(t) convolve e^(-t) u(t)$
+
+  #h(36pt) $= integral_0^t sin(3 tau) u(tau) e^(-(t - tau)) u(t - tau) d tau$
+
+  #h(36pt) $= integral_0^t sin(3 tau) e^(-t) e^(tau) d tau$
+
+  #h(36pt) $= e^(-t) integral_0^t sin(3 tau) e^(tau) d tau$
+
+  #grid(columns: (2fr, 2fr),
+    [
+      #h(36pt) $=$ further math stuff, including 
+
+      #h(47pt) integration by parts
+    ],
+    [
+      #grid(columns: (2fr, 2fr),
+        [
+          $u$
+
+          $d u$
+        ],
+        [
+          $v$
+
+          $d v$
+        ]
+      )
+    ]
+  )
 
   #box(
     inset: 8pt,
