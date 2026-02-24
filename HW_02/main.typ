@@ -85,13 +85,13 @@ the initial conditions are $y_0 (0^-) = 2$ and $y'_0(0^-) = -1$])
 equation: $ (D^2 + 6D + 9) y(t) = (2D + 9)x(t) $])
 
 #block(inset: 1em)[
-  $h(t) = b_0 delta(t) + [P(D)y_n(t)]u(t)$  
+  $h(t) = b_0 delta(t) + [P(D)y_n (t)]u(t)$  
 
   By observation, $P(D) = 2D + 9$; because $P(D)$ contains no $D^2$ term, $b_0
   = 0$. 
 
   #box(inset:10pt)[
-    #underline(offset: 3pt, evade: false)[Solve for $y_n(t)$:]
+    #underline(offset: 3pt, evade: false)[Solve for $y_n (t)$:]
   
     $lambda^2 + 6 lambda + 9 = (lambda + 3)^2 = 0 arrow lambda_1 = lambda_2 =
     lambda = -3$
@@ -113,7 +113,8 @@ equation: $ (D^2 + 6D + 9) y(t) = (2D + 9)x(t) $])
       [
         $y'_n (t) = -3c_1e^(-3t) + c_2 e^(-3t) - 3 c_2 t e^(-3t)$
   
-        $1 = -3 c_1 e^(-3 dot 0) + c_2 e^(-3 dot 0) - 3 c_2 dot 0 e^(-3 dot 0)$
+        $1 = -3 c_1 e^(-3 dot 0) + c_2 e^(-3 dot 0) - 3 c_2 dot 0 dot e^(-3 dot
+        0)$
   
         $1 = -3 c_1 + c_2$
       ]
@@ -201,13 +202,13 @@ u(t)$. Determine the zero-state system response if the input $x(t)$ is:])
   
   #h(36pt) $= e^(-t) integral_0^t e^0 d tau$
 
-  #h(36pt) $= e^(-t)$
+  #h(36pt) $= e^(-t) dot [tau]_0^t$
 
   #box(
     inset: 8pt,
     stroke: black
   )[
-    $y_"ZSR" (t) = (e^(-t)) u(t)$
+    $y_"ZSR" (t) = (t e^(-t)) u(t)$
   ]
 ]
 
@@ -360,9 +361,7 @@ integrators in parallel.])
   For parallel systems, $y_p (t) = x(t) convolve (h_1 (t) + h_2 (t))$.
   
   To find the impulse response, $x(t) = delta(t)$. Using two of the same
-  integrator, \ $h_1 (t) = h_2 (t) = h_i (t) = u(t)$.
-
-  Therefore, 
+  integrator, \ $h_1 (t) = h_2 (t) = h_i (t) = u(t)$. Therefore, 
 
   $h_p (t) = delta(t) convolve (u(t) + u(t))$
 
@@ -389,7 +388,8 @@ integrators in parallel.])
     inset: 8pt,
     stroke: black
   )[
-    $h_p (t) = 2 u(t)$
+    $h_p (t) = 2 u(t)"  "$#footnote()[Note that the final solved convolution is equal
+    to $h_1 (t) + h_2 (t)$]
   ]
 ]
 
@@ -400,9 +400,7 @@ integrators in series.])
   For series systems, $y_s (t) = x(t) convolve (h_1 (t) convolve h_2(t))$.
 
   To find the impulse response, $x(t) = delta(t)$. Using two of the same
-  integrator, \ $h_1 (t) = h_2 (t) = h_i (t) = u(t)$.
-
-  Therefore,
+  integrator, \ $h_1 (t) = h_2 (t) = h_i (t) = u(t)$. Therefore,
 
   $h_s (t) = delta (t) convolve (u (t) convolve u (t))$
 
@@ -422,7 +420,7 @@ integrators in series.])
     inset: 8pt,
     stroke: black
   )[
-    $h_s (t) = 1$
+    $h_s (t) = 1" "$#footnote()[Note that the final solved convolution is equal to $h_1 (t) convolve h_2 (t)$]
   ]
 ]
 
@@ -436,8 +434,9 @@ integrators in series.])
     #lq.diagram(
       width: 16cm,
       height: 4cm,
-      xaxis: (tick-distance: 1, label: $t$),
-      yaxis: (label: $x'(t)$),
+      xaxis: (tick-distance: 1, label: $tau$),
+      //yaxis: (label: $x(tau)$),
+      legend: (position: top+left),
 
       // h(t)
       lq.plot(
@@ -445,12 +444,15 @@ integrators in series.])
         ( 0, 0, 1,1,0,0),
         stroke: (paint: red, thickness: 3pt, dash: "dashed"),
         mark: none,
+        label: [$h(tau)$],
       ),
 
       xoft
     )
   ]
 }
+
+#v(10pt)
 
 #graphHofT(
       // x(t)
@@ -459,19 +461,303 @@ integrators in series.])
         ( 0,0,2,0,0),
         stroke: (paint: orange, thickness: 3pt, dash: "dashed"),
         mark: none,
+        label: [$x(tau)$],
       )
     )
 
 #subproblem("A", [Determine and plot the system output $y(t) = x(t) star h(t)$.])
 
 #block(inset: 1em)[
-  #lorem(10)
+
+  Graph $x(-tau)$:
+
+  #graphHofT(
+        // x(t)
+        lq.plot(
+          (-8,-2,-2,0,8),
+          ( 0, 0, 2,0,0),
+          stroke: (paint: orange, thickness: 3pt, dash: "dashed"),
+          mark: none,
+          label: [$x(-tau)$],
+        )
+      )
+
+  The graph of $x(-tau)$ has two points of interest, $tau_1 = 0$ and $tau_2 = -2$.
+  These points will be tracked for each case below.
+
+  Case 1: $t < -2$
+
+  #graphHofT(
+        // x(t)
+        lq.plot(
+          (-8,-4,-4,-2,8),
+          ( 0, 0, 2, 0,0),
+          stroke: (paint: orange, thickness: 3pt, dash: "dashed"),
+          mark: none,
+          label: [$x(-tau)$],
+        )
+      )
+
+  #block(inset: 2em)[
+    $tau_1 = 0 + t$, $tau_2 = -2 + t$
+
+    Since $h(t)$ and $x(t)$ do not overlap where either function is greater
+    than 0, $integral x(tau) h(t - tau) d tau = 0$.
+  ]
+
+  \ // pagebreaks not allowed here, better soln might be to end the block()[]
+  \ // and start a new one
+
+  Case 2: $-2 < t < -1$
+
+  #graphHofT(
+        // x(t)
+        lq.plot(
+          (-8,-3,-3,-1,8),
+          ( 0, 0, 2, 0,0),
+          stroke: (paint: orange, thickness: 3pt, dash: "dashed"),
+          mark: none,
+          label: [$x(-tau)$],
+        )
+      )
+
+  #block(inset: 2em)[
+    $tau_1 = 0 + t$, $tau_2 = -2 + t$
+
+    $integral_(-2)^t x(tau) h(t - tau) d tau = integral_(-2)^t 1 dot (t - tau)
+    d tau$
+
+    #h(92pt) $= integral_(-2)^t t d tau - integral_(-2)^t tau d tau$
+
+    #h(92pt) $= [t tau]_(-2)^t - [tau^2 / 2]_(-2)^t $
+
+    #h(92pt) $= t^2 + 2t - (t^2 / 2 -2)$
+
+    #h(92pt) $= t^2 / 2 + 2t + 2$
+  ]
+
+  Case 3: $-1 < t < 0$
+
+  #graphHofT(
+        // x(t)
+        lq.plot(
+          (-8,-2,-2,0,8),
+          ( 0, 0, 2,0,0),
+          stroke: (paint: orange, thickness: 3pt, dash: "dashed"),
+          mark: none,
+          label: [$x(-tau)$],
+        )
+      )
+
+  #block(inset: 2em)[
+    $tau_1 = 0 + t$, $tau_2 = -2 + t$
+
+    $integral_(-2)^t x(tau) h(t - tau) d tau = integral_(-2)^t 1 dot (t - tau)
+    d tau$
+
+    #h(92pt) $= integral_(-2)^t t d tau - integral_(-2)^t tau d tau$
+
+    #h(92pt) $= [t tau]_(-2)^t - [tau^2 / 2]_(-2)^t $
+
+    #h(92pt) $= t^2 + 2t - (t^2 / 2 -2)$
+
+    #h(92pt) $= t^2 / 2 + 2t + 2$
+  ] 
+
+  \
+  \
+
+  Case 4: $0 < t < 1$
+
+  #graphHofT(
+        // x(t)
+        lq.plot(
+          (-8,-1,-1,1,8),
+          ( 0, 0, 2,0,0),
+          stroke: (paint: orange, thickness: 3pt, dash: "dashed"),
+          mark: none,
+          label: [$x(-tau)$],
+        )
+      )
+
+  #block(inset: 2em)[
+    $tau_1 = 0 + t$, $tau_2 = -2 + t$
+
+    $integral_(-2 + t)^t x(tau) h(t - tau) d tau = integral_(-2 + t)^t 1 dot (t - tau)
+    d tau$
+
+    #h(101pt) $= integral_(-2 + t)^t t d tau - integral_(-2 + t)^t tau d tau$
+
+    #h(101pt) $= [t tau]_(-2 + t)^t - [tau^2 / 2]_(-2 + t)^t $
+
+    #h(101pt) $= t^2 - (-2 t + t^2) - (t^2 / 2 - (-2 + t)^2 / 2)$
+
+    #h(101pt) $= t^2 + 2 t - t^2 - t^2 / 2 + t^2 / 2 - (4 t) / 2 + 4 / 2$
+    
+    #h(101pt) $= 2 t - 2 t + 2$
+
+    #h(101pt) $= 2$
+  ] 
+
+  \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \
+
+  Case 5: $1 < t < 2$
+
+  #graphHofT(
+        // x(t)
+        lq.plot(
+          (-8,0,0,2,8),
+          ( 0,0,2,0,0),
+          stroke: (paint: orange, thickness: 3pt, dash: "dashed"),
+          mark: none,
+          label: [$x(-tau)$],
+        )
+      )
+
+  #block(inset: 2em)[
+    $tau_1 = 0 + t$, $tau_2 = -2 + t$
+
+    $integral_(-2 + t)^t x(tau) h(t - tau) d tau = integral_(-2 + t)^t 1 dot (t - tau)
+    d tau$
+
+    #h(101pt) $= integral_(-2 + t)^t t d tau - integral_(-2 + t)^t tau d tau$
+
+    #h(101pt) $= [t tau]_(-2 + t)^t - [tau^2 / 2]_(-2 + t)^t $
+
+    #h(101pt) $= t^2 - (-2 t + t^2) - (t^2 / 2 - (-2 + t)^2 / 2)$
+
+    #h(101pt) $= t^2 + 2 t - t^2 - t^2 / 2 + t^2 / 2 - (4 t) / 2 + 4 / 2$
+    
+    #h(101pt) $= 2 t - 2 t + 2$
+
+    #h(101pt) $= 2$
+  ] 
+
+  \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \
+
+  Case 6: $2 < t < 3$
+
+  #graphHofT(
+        // x(t)
+        lq.plot(
+          (-8,1,1,3,8),
+          ( 0,0,2,0,0),
+          stroke: (paint: orange, thickness: 3pt, dash: "dashed"),
+          mark: none,
+          label: [$x(-tau)$],
+        )
+      )
+
+  #block(inset: 2em)[
+    $tau_1 = 0 + t$, $tau_2 = -2 + t$
+
+    $integral_(-2 + t)^2 x(tau) h(t - tau) d tau = integral_(-2 + t)^2 1 dot (t - tau)
+    d tau$
+
+    #h(101pt) $= integral_(-2 + t)^2 t d tau - integral_(-2 + t)^2 tau d tau$
+
+    #h(101pt) $= [t tau]_(-2 + t)^2 - [tau^2 / 2]_(-2 + t)^2 $
+
+    #h(101pt) $= 2t - (-2 t + t^2) - (2 - (-2 + t)^2 / 2)$
+
+    #h(101pt) $= 2t + 2 t - t^2 - 2 + t^2 / 2 - (4 t) / 2 + 4 / 2$
+
+    #h(101pt) $= - t^2 + t^2 / 2 - 2 t + 2 t + 2 t - 2 + 2$
+    
+    #h(101pt) $= -(t^2) / 2 + 2 t$
+  ] 
+
+  \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \
+
+  Case 7: $3 < t < 4$
+
+  #graphHofT(
+        // x(t)
+        lq.plot(
+          (-8,2,2,4,8),
+          ( 0,0,2,0,0),
+          stroke: (paint: orange, thickness: 3pt, dash: "dashed"),
+          mark: none,
+          label: [$x(-tau)$],
+        )
+      )
+
+  #block(inset: 2em)[
+    $tau_1 = 0 + t$, $tau_2 = -2 + t$
+
+    $integral_(-2 + t)^2 x(tau) h(t - tau) d tau = integral_(-2 + t)^2 1 dot (t - tau)
+    d tau$
+
+    #h(101pt) $= integral_(-2 + t)^2 t d tau - integral_(-2 + t)^2 tau d tau$
+
+    #h(101pt) $= [t tau]_(-2 + t)^2 - [tau^2 / 2]_(-2 + t)^2 $
+
+    #h(101pt) $= 2t - (-2 t + t^2) - (2 - (-2 + t)^2 / 2)$
+
+    #h(101pt) $= 2t + 2 t - t^2 - 2 + t^2 / 2 - (4 t) / 2 + 4 / 2$
+
+    #h(101pt) $= - t^2 + t^2 / 2 - 2 t + 2 t + 2 t - 2 + 2$
+    
+    #h(101pt) $= -(t^2) / 2 + 2 t$
+  ] 
+
+  Case 8: $4 < t$
+
+  #graphHofT(
+        // x(t)
+        lq.plot(
+          (-8,2,2,4,8),
+          ( 0,0,2,0,0),
+          stroke: (paint: orange, thickness: 3pt, dash: "dashed"),
+          mark: none,
+          label: [$x(-tau)$],
+        )
+      )
+
+  Since $h(t)$ and $x(t)$ do not overlap where either function is greater
+  than 0, $integral x(tau) h(t - tau) d tau = 0$.
 
   #box(
-    inset: 8pt,
+    inset: 12pt,
     stroke: black
   )[
-    answer goes here
+    $y (t) = cases(
+      0 & t < -2,
+      t^2 / 2 + 2 t + 2 & -2 < t < 0,
+      2 & 0 < t < 2,
+      - t^2 / 2 + 2 t & 2 < t < 4,
+      0 & 4 < t,
+    )$
+
+    #align(center)[
+      #let first = lq.linspace(-2,0)
+      #let second = lq.linspace(0,2)
+      #let third = lq.linspace(2,4)
+      #let zeroOne = lq.linspace(-4,-2)
+      #let zeroTwo = lq.linspace(4,6)
+
+      #lq.diagram(
+        width: 14cm,
+        height: 4cm,
+        xaxis: (tick-distance: 1, label: $t$),
+        yaxis: (label: $y(t)$),
+
+        lq.plot(first, first => (calc.pow(first, 2) / 2) + (2 * first) + 2,
+        mark: none, stroke: (paint: blue, thickness: 2pt)),
+
+        lq.plot(second, second => 2, mark: none, stroke: (paint: blue,
+        thickness: 2pt)),
+
+        lq.plot(third, third => (- ( calc.pow(third, 2) / 2 ) + (2 * third) ),
+        mark: none, stroke: (paint: blue, thickness: 2pt)),
+
+        lq.plot(zeroOne, zeroOne => 0, mark: none, stroke: (paint: blue,
+        thickness: 2pt)),
+
+        lq.plot(zeroTwo, zeroTwo => 0, mark: none, stroke: (paint: blue,
+        thickness: 2pt)),
+      )
+    ]
   ]
 ]
 
@@ -479,13 +765,12 @@ integrators in series.])
 reasoning.])
 
 #block(inset: 1em)[
-  #lorem(10)
-
   #box(
     inset: 8pt,
     stroke: black
   )[
-    answer goes here
+    Based on the graph of $y (t)$ above, the system is not causal since $y(t)
+    eq.not 0" "forall" "t < 0$. The system is stable since $display(lim_(t->oo) y(t) = 0)$.
   ]
 ]
 
