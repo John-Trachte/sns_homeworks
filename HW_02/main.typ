@@ -360,7 +360,7 @@ integrators in parallel.])
   For parallel systems, $y_p (t) = x(t) convolve (h_1 (t) + h_2 (t))$.
   
   To find the impulse response, $x(t) = delta(t)$. Using two of the same
-  integrator, $h_1 (t) = h_2 (t) = h_i (t) = u(t)$.
+  integrator, \ $h_1 (t) = h_2 (t) = h_i (t) = u(t)$.
 
   Therefore, 
 
@@ -383,7 +383,7 @@ integrators in parallel.])
     ]
   )
 
-  #h(28pt) $= 2u(t)$
+  #h(28pt) $= 2u(t) dot 1$
 
   #box(
     inset: 8pt,
@@ -400,7 +400,7 @@ integrators in series.])
   For series systems, $y_s (t) = x(t) convolve (h_1 (t) convolve h_2(t))$.
 
   To find the impulse response, $x(t) = delta(t)$. Using two of the same
-  integrator, $h_1 (t) = h_2 (t) = h_i (t) = u(t)$.
+  integrator, \ $h_1 (t) = h_2 (t) = h_i (t) = u(t)$.
 
   Therefore,
 
@@ -416,13 +416,13 @@ integrators in series.])
 
   #h(26pt) $= integral_(-oo)^oo delta (tau) dot 1 d tau$
 
-  #h(26pt) $= u(t)$
+  #h(26pt) $= 1$
 
   #box(
     inset: 8pt,
     stroke: black
   )[
-    $h_s (t) = u(t)$
+    $h_s (t) = 1$
   ]
 ]
 
