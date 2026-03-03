@@ -10,7 +10,7 @@
 )
 
 #problem(1, [An LTI system is specified by the equation: $ (D^2 + 5D + 6) y(t)
-= (D + 1) x(t) $])
+>= (D + 1) x(t) $])
 
 #subproblem("A", [Find the characteristic polynomial, equation, roots, and
 modes of the system.])
@@ -106,9 +106,9 @@ equation: $ (D^2 + 6D + 9) y(t) = (2D + 9)x(t) $])
       [
         $y_n (t) = c_1e^(-3t) + c_2 t e^(-3t)$ 
   
-        $0 = c_1 e^(-3 dot 0) + c_2 e^(-3 dot 0)$
+        $0 = c_1 e^(-3 dot 0) + c_2 dot 0 dot e^(-3 dot 0)$
   
-        $0 = c_1 + c_2$
+        $0 = c_1$
       ],
       [
         $y'_n (t) = -3c_1e^(-3t) + c_2 e^(-3t) - 3 c_2 t e^(-3t)$
@@ -120,40 +120,33 @@ equation: $ (D^2 + 6D + 9) y(t) = (2D + 9)x(t) $])
       ]
     )
   
-    Equations $0 = c_1 + c_2$ and $1 = -3 c_1 + c_2$ can now be solved as a
+    Equations $0 = c_1$ and $1 = -3 c_1 + c_2$ can now be solved as a
     system of equations:
   
-    $c_1 = - c_2 arrow 1 = -3 (-c_2) + c_2$
+    $c_1 = 0 arrow 1 = -3 (0) + c_2$
   
-    #h(60pt) $1 = 3 c_2 + c_2$
+    #h(48pt) $c_2 = 1$
   
-    #h(60pt) $1 = 4 c_2$
-  
-    #h(60pt) $c_2 = 1/4$
-  
-    $c_1 = - 1/4$
+    $c_1 = 0$
   ]
 
-  $y_n (t) = - 1/4 e^(-3 t) + 1/4 t e^(-3 t)$
+  $y_n (t) = t e^(-3 t)$
 
-  $h(t) = 0 dot delta(t) + [(2D + 9)((-e^(-3 t)) / 4 + (t e^(-3 t)) /4)]u(t)$
+  $h(t) = 0 dot delta(t) + [(2D + 9)(t e^(-3 t))]u(t)$
 
-  #h(22pt) $= [2 d(-e^(-3 t) / 4) / (d t) + 2 d((t e^(-3 t)) / 4) / (d t) - (9
-  e^(-3 t)) / 4 + (9 t e^(-3 t)) / 4]u(t)$
+  #h(22pt) $= [2 d(t e^(-3 t)) / (d t) + 9 t e^(-3 t)]u(t)$
 
-  #h(22pt) $= [2 ((3 e^(-3 t)) / 4) + 2 ((e^(-3 t) -3 t e^(-3 t)) / 4) - (9
-  e^(-3 t)) / 4 + (9 t e^(-3 t)) / 4]u(t)$
+  #h(22pt) $= [2 (e^(-3 t) - 3 t e^(-3t)) + 9 t e^(-3 t)]u(t)$
 
-  #h(22pt) $= [(6 e^(-3 t) + 2 e^(-3 t) -6 t e^(-3 t) - 9e^(-3t) + 9 t e^(-3t))
-  / 4 ]u(t)$
+  #h(22pt) $= [2 e^(-3 t) - 6 t e^(-3t) + 9 t e^(-3 t)]u(t)$
 
-  #h(22pt) $= [(- e^(-3 t) + 3 t e^(-3 t)) / 4 ]u(t)$
+  #h(22pt) $= [2 e^(-3 t) + 3 t e^(-3t)]u(t)$
 
   #box(
     inset: 8pt,
     stroke: black
   )[
-    $h(t) = [(- e^(-3 t) + 3 t e^(-3 t)) / 4 ]u(t)$
+    $h(t) = [2 e^(-3 t) + 3 t e^(-3t)]u(t)$
   ]
 ]
 
