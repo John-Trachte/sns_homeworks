@@ -94,21 +94,69 @@
 0$, #h(10pt) $x(t) = u(t)$])
 
 #block(inset: 1em)[
+  $cal(L){(D^2 + 3D + 2)y(t)} = cal(L){D x(t)}$
+
+  $s^2 Y(s) - s y(0^-) - y'(0^-) + 3[s Y(s) - y(0^-)] + 2Y(s) = s X(s) -
+  x(0^-)$
+
+  #h(52pt) $s^2 Y(s) - s dot 0 - 0 + 3s Y(s) - 3 dot 0 + 2Y(s) = s 1 /
+  s - 0$
+
+  #h(171pt) $(s^2 + 3s + 2) Y(s) =  1$
+
+  #h(233pt) $Y(s) = 1 / (s^2 + 3s + 2)$
+
+  #h(233pt) $Y(s) = 1 / ((s+1)(s+2))$
+
+  Using the partial fraction decomposition of $1 / ((s+1)(s+2))$ found in
+  problem *1.B*, $Y(s) = 1 / (s+1) - (1) / (s+2)$.
+
+  $cal(L)^(-1){Y(s)} = cal(L)^(-1){1 / (s+1)} - cal(L)^(-1){1 / (s+2)}$
+
+  #h(56pt) $= [e^(-t) - e^(-2t)]u(t)$
 
   #box(stroke: black, inset: 8pt)[
-    Answer
+    $y(t) = [e^(-t) - e^(-2t)]u(t)$
   ]
 ]
 
 #subproblem("B", [$(D^2 + 4D + 4) y(t) = (D + 1) x(t)$; #h(10pt) $y(0^-) = 2$,
-#h(10pt) $y'(0-) = 1$, #h(10pt) $x(t) = e^(-t) u(t)$])
+#h(10pt) $y'(0^-) = 1$, #h(10pt) $x(t) = e^(-t) u(t)$])
 
 #block(inset: 1em)[
+  $cal(L){(D^2 + 4D + 4)y(t)} = cal(L){(D+1)x(t)}$
+
+  $s^2 Y(s) - s y(0^-) - y'(0^-) + 4[s Y(s) - y(0^-)] + 4 Y(s) = s X(s) -
+  x(0^-) + X(s)$
+
+  #h(86pt) $(s^2 + 4s + 4)Y(s) - s dot 2 - 1 - 4 dot 2 = s dot 1 / (s + 1) - 0
+  + 1 / (s + 1)$
+
+  #h(126pt) $(s^2 + 4s + 4)Y(s) - 2s - 9 = (s + 1) / (s + 1)$
+
+  #h(168pt) $(s^2 + 4s + 4)Y(s) = 2s + 10$
+
+  #h(230pt) $Y(s) = (2s + 10) / (s^2 + 4s + 4)$
+
+  $cal(L)^(-1){(2s + 10) / (s^2 + 4s + 4)} = cal(L)^(-1){(2s + 10) / ((s+2)^2)}
+  = cal(L)^(-1){ k_1 / (s + 2) + k_2 / (s + 2)^2}$
+
+  $k_1 = d/(d s) [(s+2)^2 dot (2s+10) / (s+2)^2]_(s=-2) = d/(d s) [2s +
+  10]_(s=-2) = 2$
+
+  $k_2 = [(s+2)^2 dot (2s+10) / (s+2)^2]_(s=-2) = [2s + 10]_(s=-2) = 6$
+
+  $cal(L)^(-1){(2s + 10) / (s^2 + 4s + 4)} = cal(L)^(-1){ 2 / (s + 2) + 6 / (s
+  + 2)^2}$
+
+  #h(72pt) $= [2 e^(-2t) + 6 t e^(-2t)]u(t)$
 
   #box(stroke: black, inset: 8pt)[
-    Answer
+    $y(t) = [2 e^(-2t) + 6 t e^(-2t)]u(t)$
   ]
 ]
+
+#pagebreak()
 
 #problem(3, [Consider an LTIC system described by \ $ y'(t) + 2y(t) = x'(t) $])
 
