@@ -163,9 +163,15 @@
 #subproblem("A", [Determine the transfer function $H(s)$ for this system.])
 
 #block(inset: 1em)[
+  By observation, $y'(t) + 2y(t) = x'(t)$ can be written as $(D + 2)y(t) = D
+  x(t)$; in the frequency domain, this can be written as $(s + 2)y(s) = s
+  X(s)$.
+
+  Since $H(s) = (Y(s))/(X(s))$, $H(s) = (P(s))/(Q(s))$. With $P(s) = s$ and
+  $Q(s) = s + 2$, $H(s) = s/(s+2)$.
 
   #box(stroke: black, inset: 8pt)[
-    Answer
+    $H(s) = s/(s+2)$
   ]
 ]
 
@@ -173,9 +179,16 @@
 response $h(t)$ for this system.])
 
 #block(inset: 1em)[
+  $h(t) = cal(L)^(-1){H(s)} = cal(L)^(-1){s/(s+2)}$
+
+  #h(91pt) $= cal(L)^(-1){(s+2-2)/(s+2)}$
+
+  #h(91pt) $= cal(L)^(-1){1 - (2)/(s+2)}$
+
+  #h(91pt) $= [delta(t) - 2e^(-2t)]u(t)$
 
   #box(stroke: black, inset: 8pt)[
-    Answer
+    $h(t) = [delta(t) - 2e^(-2t)]u(t)$
   ]
 ]
 
@@ -183,24 +196,96 @@ response $h(t)$ for this system.])
 $y(t)$ if the input $x(t) = e^(-t) u(t)$ with $y(0^-) = root(,2)$.])
 
 #block(inset: 1em)[
+  $cal(L){(D+2)y(t)} = cal(L){D x(t)}$
+
+  $s Y(s) - y(0^-) + 2Y(s) = s X(s) - x(0^-)$
+
+  #h(24pt) $(s+2)Y(s) - root(,2) = s(1/(s+1)) - 0$
+
+  #h(52pt) $(s+2)Y(s) = s/(s+1) + root(,2)$
+
+  #h(84pt) $Y(s) = s/((s+1)(s+2)) + root(,2)/(s+2)$
+
+  #h(110pt) $= k_1/(s+1) + k_2/(s+2) + root(,2)/(s+2)$
+
+  $k_1 = [(s+1) dot (s/((s+1)(s+2)))]_(s=-1) = [s/(s+2)]_(s=-1) = -1$
+
+  $k_2 = [(s+2) dot (s/((s+1)(s+2)))]_(s=-2) = [s/(s+1)]_(s=-2) = 2$
+
+  $Y(s) = -1/(s+1) + 2/(s+2) + root(,2)/(s+2)$
+
+  $y(t) = cal(L)^(-1){Y(s)} = cal(L)^(-1){(2+root(,2))/(s+2) - 1/(s+1)}$
+
+  #h(88pt) $= [(2+root(,2))e^(-2t) - e^(-t)]u(t)$
 
   #box(stroke: black, inset: 8pt)[
-    Answer
+    $y(t) = [(2+root(,2))e^(-2t) - e^(-t)]u(t)$
   ]
 ]
+
+#pagebreak()
 
 #problem(4, [An LTI system has a step response given by $S(t) = e^(-t) u(t) -
 e^(-2t) u(t)$. Determine the output $y(t)$ of the system given an input $x(t) =
 delta(t - pi) - cos(root(,3))u(t)$.])
 
 #block(inset: 1em)[
+  $h(t) = d/(d t) S(t) = d/(d t) [e^(-t)u(t) - e^(-2t)u(t)]$
+
+  $h(t) = -e^(-t)u(t) + e^(-t)delta(t) - [-2e^(-2t)u(t) + e^(-2t)delta(t)]$
+
+  #h(21pt) $= [-e^(-t)+ e^0 + 2e^(-2t) - e^(0)]u(t)$
+
+  #h(21pt) $= [2e^(-2t) - e^(-t)]u(t)$
+
+  $Y(s) = cal(L){x(t)} dot cal(L){h(t)}$
+
+  $cal(L){x(t)} = cal(L){(delta(t-pi)-cos(root(,3)))u(t)}$
+
+  #h(41pt) $= e^(-pi t) - (cos(root(,3)))/s$
+
+  $cal(L){h(t)} = cal(L){(2e^(-2t) - e^(-t))u(t)}$
+
+  #h(41pt) $= 2/(s+2) - 1/(s+1)$
+
+  $Y(s) = (e^(-pi t) - cos(root(,3))/s) dot (2/(s+2) - 1/(s+1))$
+
+  #h(26pt) $= (2e^(-pi t))/(s+2) - e^(-pi t)/(s+1) - (2cos(root(,3)))/(s(s+2))
+  + (cos(root(,3)))/(s(s+1))$
+
+  #h(26pt) $= (2e^(-pi t))/(s+2) - e^(-pi t)/(s+1) - (k_1)/(s) - k_2/(s+2)
+  + (l_2)/(s) + (l_2)/(s+1)$
+
+  #v(10pt)
+
+  $k_1 = [s dot (2cos(root(,3)))/(s(s+2))]_(s=0) = [(2cos(root(,3)))/(s+2)]_(s=0) = cos(root(,3))$
+
+  $k_2 = [(s+2) dot (2cos(root(,3)))/(s(s+2))]_(s=-2) = [(2cos(root(,3)))/(s)]_(s=-2) = -cos(root(,3))$
+
+  #v(10pt)
+
+  $l_1 = [s dot (cos(root(,3)))/(s(s+1))]_(s=0) = [(cos(root(,3)))/(s+1)]_(s=0) = cos(root(,3))$
+
+  $l_2 = [(s+1) dot (cos(root(,3)))/(s(s+1))]_(s=-1) = [(cos(root(,3)))/(s)]_(s=-1) = -cos(root(,3))$
+
+  #v(10pt)
+
+  $Y(s) = (2e^(-pi t))/(s+2) - (e^(-pi t))/(s+1) - (cos(root(,3)))/s + cos(root(,3))/(s+2) + (cos(root(,3)))/s - (cos(root(,3)))/(s+1)$
+
+  $cal(L)^(-1){Y(s)} = cal(L)^(-1){(2e^(-pi t))/(s+2) - (e^(-pi t))/(s+1) - (cos(root(,3)))/s + cos(root(,3))/(s+2) + (cos(root(,3)))/s - (cos(root(,3)))/(s+1)}$
+
+  #h(55pt) $= cal(L)^(-1){(2e^(-pi t))/(s+2) - (e^(-pi t))/(s+1) + cos(root(,3))/(s+2)  - (cos(root(,3)))/(s+1)}$
+
+  #h(55pt) $= [2e^(-2(t-pi)) - e^(-(t-pi))]u(t-pi) + [cos(root(,3))e^(-2t) - cos(root(,3))e^(-t)]u(t)$
 
   #box(stroke: black, inset: 8pt)[
-    Answer
+    $y(t) = [2e^(-2(t-pi)) - e^(-(t-pi))]u(t-pi) + [cos(root(,3))e^(-2t) - cos(root(,3))e^(-t)]u(t)$
   ]
 ]
 
-#problem(5, [Determind the zero-state response $y_"ZSR" (t)$ of the network in
+#pagebreak()
+
+#problem(5, [Determine the zero-state response $y_"ZSR" (t)$ of the network in
 Fig. 1 if the input voltage $x(t) = t e^(-t) u(t)$. Determine the transfer
 function relating the output $Y(s)$ to the input $X(s)$; using the transfer
 function, write the differential equation relating $y(t)$ to $x(t)$.])
