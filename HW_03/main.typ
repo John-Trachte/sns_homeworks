@@ -307,7 +307,9 @@ function, write the differential equation relating $y(t)$ to $x(t)$.])
     wire("xoft.in",(10,-2))
     wire("rpll.out",(10,0))
 
-    // this is a goofy way to get the y(t) label. should be done with cetz natively but it doesn't play nicely with my live renderer, which is more important
+    // this is a goofy way to get the y(t) label. should be done with cetz
+    // natively but it doesn't play nicely with my live renderer, which is more
+    // important
     node("term",(10,0),label:(content:[]),stroke:luma(255))
     node("yoft",(10,-2),label:(content:[$+$ \ $y(t)$ \ $-$]),stroke:luma(255))
   })
@@ -316,11 +318,90 @@ function, write the differential equation relating $y(t)$ to $x(t)$.])
 ]
 
 #block(inset: 1em)[
+  To determine the zero-state response of the system, there must be no initial
+  conditions in the system. Therefore, $V_c(0^-) = 0$, $i_L(0^-) = 0$. The 
+  circuit can be redrawn in the Laplace domain as follows:
 
+  #align(center)[
+    #scale(x:75%,y:75%)[
+      #zap.circuit({
+        import zap: *
+    
+        vsource("xoft",(0,-2),(0,0),label:(content:$X(s)$),variant:"ieee")
+    
+        resistor("rsrs","xoft.out",(4,0),label:(content:$1$),variant:"ieee")
+    
+        pcapacitor("c1",(4,-2),"rsrs.out",label:(content:$1/s$))
+    
+        inductor("l1","rsrs.out",(8,0),label:(content:$s$),variant:"ieee")
+    
+        resistor("rpll",(8,-2),"l1.out",label:(content:$1$),variant:"ieee")
+    
+        wire("xoft.in",(10,-2))
+        wire("rpll.out",(10,0))
+    
+        node("term",(10,0),label:(content:[]),stroke:luma(255))
+        node("yofs",(10,-2),label:(content:[$+$ \ $Y(s)$ \ $-$]),stroke:luma(255))
+      })
+    ]
+  ]
+
+  with $X(s) = 1/((s+1)^2)$.
+
+  $Y(s)$ is the component of $X(s)$ dissipated across the rightmost resistor,
+  which can be found through multiple voltage divisions. The first division
+  finds the voltage $V_1$ across all elements right of the resistor connected
+  to $X(s)$, for which the impedance on the right side of the circuit is
+  needed:
+
+  $X_R = 1/((1/(1/s))+(1/(s+1))) = 1/(s+1/(s+1)) = 1/((s^2+s+1)/(s+1)) =
+  (s+1)/(s^2+s+1)$
+
+  $V_1(s) = X(s) dot ((s+1)/(s^2+s+1))/((s+1)/(s^2+s+1)+1) = X(s) dot
+  ((s+1)/(s^2+s+1))/((s+1+s^2+s+1)/(s^2+s+1)) = X(s) dot (s+1)/(s^2+2s+2)$
+
+  $Y(s)$ can now be found by dividing $V_1(s)$ across the rightmost inductor
+  and resistor:
+
+  $Y(s) = V_1(s) dot 1/(s+1) = X(s) dot (s+1)/(s^2+2s+2) dot 1/(s+1) = X(s)
+  dot 1/(s^2+2s+2) = 1/((s+1)^2) dot 1/(s^2+2s+2)$
+
+  #h(25pt) $= 1/((s+1)^2(s^2+2s+2)) = k_1/((s+1)^2) + k_2/((s+1 plus.minus j)^2)$
+
+  #v(10pt)
+
+  $k_1 = [(s+1)^2 dot 1/((s+1)^2(s^2+2s+2))]_(s=-1) = [1/(s^2+2s+2)]_(s=-1) =
+  1/(1-2+2) = 1$
+
+  $k_2 = [(s+1 plus.minus j) dot 1/((s+1)^2(s^2+2s+2))]_(s=-1+j) =
+  [1/(s^2+2s+1)]_(s=-1+j) = 1/(1-j 2-1-2+j 2+1) = -1$
+
+  #v(10pt)
+
+  $Y(s) = 1/((s+1)^2) - 1/((s+1 plus.minus j)^2) = 1/((s+1)^2) - 1/(s^2+2s+2) =
+  1/((s+1)^2) - 1/((s+1)^2+1^2)$
+
+  $y_"ZSR" (t) = cal(L)^(-1){Y(s)} = cal(L)^(-1){1/((s+1)^2)} -
+  cal(L)^(-1){1/((s+1)^2+1^2)}$
+
+  #h(36pt) $= [t e^(-t) - e^(-t)sin(t)]u(t)$
+
+  \ 
+
+  $H(s) = 1/(s^2+2s+2) = P(s) / Q(s)$, so $P(s) = 1$, $Q(s) = s^2+2s+2$.
+
+  $P(D) = 1$ and $Q(D) = D^2+2D+2$, so $(D^2+2D+2)y(t)=x(t)$.
+  
   #box(stroke: black, inset: 8pt)[
-    Answer
+    $y_"ZSR" (t) = [t e^(-t) - e^(-t)sin(t)]u(t)$
+
+    $H(s) = 1/(s^2+2s+2)$
+
+    $(D^2+2D+2)y(t)=x(t)$
   ]
 ]
+
+#pagebreak()
 
 #problem(6, [Consider the op-amp circuit in Fig. 2.])
 
@@ -355,14 +436,14 @@ function, write the differential equation relating $y(t)$ to $x(t)$.])
       swire("rop2fb.out",(12.3,-1))
       wire((12.7,-1),(12.7,3))
       wire((12.7,3),(18.5,3))
-      node("yoft",(18.5,3),label:(content:[$+$ \ $y(t)$ \ $-$],anchor:"south",distance:10pt),stroke:luma(255))
+      node("yoft",(18.5,3),label:(content:[$y(t)$],anchor:"east",distance:10pt),stroke:luma(255))
       swire("rop3fb.in",(15.5,-1))
       swire("rop3fb.out",(18.5,-4))
       swire((18.5,-4),"ropallfb.in")
       swire("ropallfb.out",(3,0))
       wire((17.8,-1.5),(18.5,-1.5))
       wire((-1,0),(0,0))
-      node("xoft",(-1,0),label:(content:[$+$ \ $x(t)$ \ $-$],anchor:"south",distance:0pt),stroke:luma(255))
+      node("xoft",(-1,0),label:(content:[$x(t)$],anchor:"west",distance:4pt),stroke:luma(255))
   
       earth("op1+",(3.5,-1))
       swire((3.5,-1),(4,0))
@@ -375,24 +456,102 @@ function, write the differential equation relating $y(t)$ to $x(t)$.])
     })
   ]
 
-  *Fig. 2* Circuit for problem 6.
+  *Fig. 2* Circuit for problem 6; all signals referenced to ground.
 ]
 
 #subproblem("A", [Determine the transfer function $H(s)$ for this system.])
 
 #block(inset: 1em)[
+  #box(inset: -30pt)[
+    #align(center)[
+      #scale(x:75%,y:75%)[
+        #zap.circuit({
+          import zap: *
+      
+          resistor("rop1-",(0,0),(2,0),variant:"ieee",label:(content:[$2$]))
+          resistor("rop1o",(5.8,-0.5),(8,-0.5),variant:"ieee",label:(content:[$1/3$]))
+          resistor("rop1fb",(5.8,3),(8,3),variant:"ieee",label:(content:[$1/2$]))
+          resistor("rop2fb",(10,1),(12,1),variant:"ieee",label:(content:[$2$]))
+          resistor("rop2o",(11.8,-1),(16,-1),variant:"ieee",label:(content:[$3$]))
+          resistor("rop3fb",(16,0.5),(18,0.5),variant:"ieee",label:(content:[$1$]))
+          resistor("ropallfb",(0,-1.5),(2,-1.5),variant:"ieee",label:(content:[$1/2$]))
+      
+          capacitor("c1",(3,1.5),(6,1.5),variant:"ieee",label:(content:[$1/s$]))
+      
+          opamp("op1",(4.9,-0.5),variant:"ieee")
+          opamp("op2",(10.9,-1),variant:"ieee")
+          opamp("op3",(16.9,-1.5),variant:"ieee")
+      
+          wire("rop1-.out",(4,0))
+          wire((0,0),(0,3))
+          wire((0,3),"rop1fb.in")
+          wire((3,0),(3,1.5))
+          wire((3,1.5),"c1.in")
+          wire((6,1.5),(6,-0.5))
+          wire("rop1o.out","rop1fb.out")
+          wire("rop1o.out",(10,-0.5))
+          swire("rop2fb.in",(9.5,-0.5))
+          swire("rop2fb.out",(12.3,-1))
+          wire((12.7,-1),(12.7,3))
+          wire((12.7,3),(18.5,3))
+          node("yoft",(18.5,3),label:(content:[$Y(s)$],anchor:"east",distance:10pt),stroke:luma(255))
+          swire("rop3fb.in",(15.5,-1))
+          swire("rop3fb.out",(18.5,-4))
+          swire((18.5,-4),"ropallfb.in")
+          swire("ropallfb.out",(3,0))
+          wire((17.8,-1.5),(18.5,-1.5))
+          wire((-1,0),(0,0))
+          node("xoft",(-1,0),label:(content:[$X(s)$],anchor:"west",distance:0pt),stroke:luma(255))
+      
+          node("zoft","op3.out",label:(content:[$Z(s)$],anchor:"east",distance:25pt),stroke:luma(255))
+          node("voft","op1.out",label:(content:[$V(s)$],anchor:"south",distance:15pt),stroke:luma(255))
+    
+          earth("op1+",(3.5,-1))
+          swire((3.5,-1),(4,0))
+      
+          earth("op2+",(9.5,-1.5))
+          swire((9.5,-1.5),(10,0))
+      
+          earth("op3+",(15.5,-2))
+          swire((15.5,-2),(16,-2))
+        })
+      ]
+    ]
+  ]
+
+  Using the nodes $V(s)$ and $Z(s)$ labelled above in the Laplace domain, a
+  system of equations can be written by applying the node names to the
+  equations of each type of amplifier. Starting with the rightmost op amp,
+
+  \ \ \ \ \ \ \ \ \
+
+  $Z(s) = (-1)/3Y(s)$
+
+  $Y(s) = (-2)/(1/2)X(s) - 2/(1/3)V(s) = -4X(s) - 6V(s)$
+
+  $V(s) = (-1/s)/2X(s) - (1/s)/(1/2)Z(s) = (-1)/(2s)X(s) - 2/s Z(s)$
+
+  Therefore, $Y(s) = -4X(s) - 6((-1)/(2s)X(s) - 2/s Z(s)) = -4X(s) -
+  6((-1)/(2s)X(s) - 2/s ((-1)/3Y(s)))$.
+
+  $Y(s) = -4X(s)+3/s X(s)-4/s Y(s)$
+
+  $Y(s) dot (1+4/s) = (3/s-4) dot X(s)$
+
+  $Y(s)/X(s) = (3/s-4)/(1+4/s) = (3-4s)/(s+4)$
 
   #box(stroke: black, inset: 8pt)[
-    Answer
+    $H(s) = (3-4s)/(s+4)$
   ]
 ]
 
 #subproblem("B", [Determine the coefficient of linear differential equation description of the circuit.])
 
 #block(inset: 1em)[
+  Because $H(s) = (3-4s)/(s+4)$, $(s+4)Y(s)=(3-4s)X(s)$.
 
   #box(stroke: black, inset: 8pt)[
-    Answer
+    By observation, $(D+4)y(t)=(3-4D)x(t)$
   ]
 ]
 
