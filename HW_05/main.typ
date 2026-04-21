@@ -77,7 +77,64 @@ signals.])
 #subproblem("A", [#image("figs/2a.png", width:50%)])
 
 #block(inset: 1em)[
+  $F^(-1){X(omega)} = 1/(2 pi) integral_(-oo)^(oo) X(omega) e^(j omega t) d
+  omega$ 
+
+  #h(59pt) $= 1/(2 pi) integral_(-omega_0)^(omega_0) omega^2 e^(j omega t) d
+  omega$
+
+  #grid(
+    columns:(2fr, 1fr),
+    [
+      // first ibp
+      #h(59pt) $= 1/(2 pi) [(omega^2 e^(j omega t))/(j t) -
+      integral_(-omega_0)^(omega_0) (2 omega e^(j omega t))/(j t) d
+      omega]_(-omega_0)^(omega_0)$
+
+      #h(59pt) $= 1/(2 pi) [(omega^2 e^(j omega t))/(j t) - 2/(j t)
+      integral_(-omega_0)^(omega_0) omega e^(j omega t) d
+      omega]_(-omega_0)^(omega_0)$
+
+
+      // second ibp
+      #h(59pt) $= 1/(2 pi) [(omega^2 e^(j omega t))/(j t) - 2/(j t)((omega e^(j
+      omega t))/(j t) - integral_(-omega_0)^(omega_0) e^(j omega t)/(j t) d
+      omega)]_(-omega_0)^(omega_0)$
+    ],
+    [
+      Integrate by parts with $u_1 = omega^2$, $d u_1 = 2 omega d omega$, $d
+      v_1 = e^(j omega t) d omega$, $v_1 = (e^(j omega t))/(j t)$
+
+      Integrate by parts with $u_2 = omega$, $d u_2 = d omega$, $d v_2 = e^(j
+      omega t) d omega$, $v_2 = (e^(j omega t))/(j t)$
+    ]
+  )
+
+  #v(10pt)
+
+  #h(59pt) $= [1/(2 pi j t) omega^2 e^(j omega t) - 2/(2 pi j t)((omega e^(j
+  omega t))/(j t) - e^(j omega t)/(j t)^2 )]_(-omega_0)^(omega_0)$
+
+  #h(59pt) $= [(omega_0^2 e^(j omega_0 t) - omega_0^2 e^(-j omega_0 t))/(2 pi j t)
+  - 2/(2 pi j t)((omega e^(j omega t))/(j t)
+  + e^(j omega t)/t^2 )]_(-omega_0)^(omega_0)$
+
+  #h(59pt) $= (omega_0^2 e^(j omega_0 t) - omega_0^2 e^(-j omega_0 t))/(2 pi j t)
+  - 2/(2 pi j t)((omega_0 e^(j omega_0 t) + omega_0 e^(-j omega_0 t))/(j t)
+  + (e^(j omega_0 t) - e^(-j omega_0 t))/t^2 )$
+
+  #h(59pt) $= (omega_0^2)/(pi t) sin(omega_0 t)
+  + (2 omega_0)/(pi t^2)cos(omega_0 t)
+  - 2/(pi t^3) sin(omega_0 t)$
+
+  #ans([
+    $F^(-1){X(omega)} = ((omega_0^2)/(pi t) - 2/(pi t^3)) sin(omega_0 t) 
+    + (2 omega_0)/(pi t^2)cos(omega_0 t)$
+  ])
 ]
+
+
+#pagebreak()
 
 #subproblem("B", [#image("figs/2b.png", width:50%)])
 
