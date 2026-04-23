@@ -139,21 +139,109 @@ signals.])
 #subproblem("B", [#image("figs/2b.png", width:50%)])
 
 #block(inset: 1em)[
+  $X(omega) = cases(0 #h(20pt)  & #h(16pt) omega < -2,
+                  1             & -2 <= omega < -1,
+                  2             & -1 <= omega < 1,
+                  1             & #h(7pt) 1 <= omega < 2,
+                  0             & #h(7pt) 2 <= omega)$
+
+  $F^(-1){X(omega)} = 1/(2 pi) integral_(-oo)^(oo) X(omega) e^(j omega t) d
+  omega$ 
+
+  #h(59pt) $= 1/(2 pi) [integral_(-2)^(-1) 1 e^(j omega t) d omega +
+  integral_(-1)^(1) 2 e^(j omega t) d omega + integral_(1)^(2) 1 e^(j omega t)
+  d omega]$
+
+  #h(59pt) $= 1/(2 pi) [[(e^(j omega t))/(j t)]_(-2)^(-1) + [(2 e^(j omega
+  t))/(j t)]_(-1)^(1) + [(e^(j omega t))/(j t)]_(1)^(2)]$
+
+  #h(59pt) $= 1/(2 pi) [(e^(-j t) - e^(-j 2 t))/(j t) + (2 (e^(j t) - e^(-j
+  t)))/(j t) + (e^(j 2 t) - e^(j t))/(j t)]$
+
+  #h(59pt) $= 1/(2 pi) [(e^(-j t) - e^(-j 2 t) + 2e^(j t) - 2e^(-j
+  t) + e^(j 2 t) - e^(j t))/(j t)]$
+
+  #h(59pt) $= 1/(2 pi) [(-e^(-j 2 t) + e^(j t) - e^(-j t) + e^(j 2 t))/(j t)]$
+
+  #h(59pt) $= 1/(2 pi) [(e^(j t) - e^(-j t) + e^(j 2 t) - e^(-j 2 t))/(j t)]$
+
+  #h(59pt) $= 1/(t pi) [(e^(j t) - e^(-j t) + e^(j 2 t) - e^(-j 2 t))/(j 2)]$
+
+  #h(59pt) $= 1/(t pi) (sin(t) + sin(2t))$
+
+  #ans([
+    $F^(-1){X(omega)} = 1/(t pi) (sin(t) + sin(2t))$
+  ])
 ]
 
+
+#pagebreak()
 
 #problem(3, [Prove the following.])
 
-#subproblem("A", [$F("rect"(t - 5)) = sinc(omega / 2) e^(-j 5 omega)$])
+#subproblem("A", [$F{ "rect"(t - 5) } = sinc(omega / 2) e^(-j 5 omega)$])
 
 #block(inset: 1em)[
+  Consider $x(t) = "rect"(t/tau) = cases(1 & #h(10pt) (-tau)/2 <= t <= tau/2, 0
+  & #h(10pt) "otherwise")$
+
+  Then $x(t - 5) = "rect"((t - 5)/tau) = cases(1 & #h(10pt) (-tau)/2 + 5 <= t
+  <= tau/2 + 5, 0 & #h(10pt) "otherwise")$
+
+  Let $tau = 1$; then $"rect"((t - 5)/tau) = "rect"(t - 5) = cases(1 & #h(10pt)
+  (-1)/2 + 5 <= t <= 1/2 + 5, 0 & #h(10pt) "otherwise") = cases(1 & #h(10pt)
+  4.5 <= t <= 5.5, 0 & #h(10pt) "otherwise")$
+
+  Using this equation, it is possible to determine the Fourier transform of
+  $"rect"(t - 5)$:
+
+  $F("rect"(t - 5)) = integral_(-oo)^(oo) "rect"(t - 5) e^(-j omega t) d t$
+
+  #h(70pt) $= integral_(4.5)^(5.5) e^(-j omega t) d t$
+
+  #h(70pt) $= [(e^(-j omega t))/(-j omega)]_(4.5)^(5.5)$
+
+  #h(70pt) $= (e^(-j omega 5.5) - e^(-j omega 4.5))/(-j omega)$
+
+  #h(70pt) $= (e^(-j omega 0.5) - e^(j omega 0.5))/(-j omega) dot e^(-j omega
+  5)$
+
+  #h(70pt) $= (e^(-j omega 0.5) + e^(j omega 0.5))/(j omega) dot e^(-j omega
+  5)$
+
+  #h(70pt) $= (2 / omega) sin(omega / 2) dot e^(-j omega 5)$
+
+  #ans([$F{"rect"(t - 5)} = sinc(omega / 2) e^(-j omega 5)$])
 ]
 
-#subproblem("B", [$F^(-1)("rect"((omega - 10) / (2 pi))) = sinc(pi t) e^(j 10 t)$])
+// #pagebreak()
+
+#subproblem("B", [$F^(-1){ "rect"((omega - 10) / (2 pi)) } = sinc(pi t) e^(j 10
+t)$])
 
 #block(inset: 1em)[
+  $X((omega - 10)/(2 pi)) = "rect"((omega - 10)/(2 pi)) = cases(1 & #h(10pt)
+  (-2 pi)/2 <= omega - 10 <= (2 pi)/2, 0 & #h(10pt) "otherwise") = cases(1 &
+  #h(10pt) (-pi + 10) <= omega <= (pi + 10), 0 & #h(10pt) "otherwise") $
+
+  $F^(-1)("rect"((omega - 10)/(2 pi))) = 1/(2 pi) integral_(-oo)^(oo)
+  "rect"((omega - 10)/(2 pi)) e^(j omega t) d omega$
+
+  #h(84pt) $= 1/(2 pi) integral_(-pi + 10)^(pi + 10)  e^(j omega t) d omega$
+
+  #h(84pt) $= 1/(2 pi) [(e^(j omega t))/(j t)]_(-pi + 10)^(pi + 10)$
+
+  #h(84pt) $= 1/(2 pi) ((e^(j t (pi + 10)) - e^(j t (-pi + 10)))/(j t))$
+
+  #h(84pt) $= (e^(j t 10))/(pi t) dot (e^(j pi t) - e^(-j pi t))/(j 2)$
+
+  #h(84pt) $= (e^(j t 10))/(pi t) sin(pi t)$
+
+  #ans([$F^(-1){ "rect"((omega - 10) / (2 pi)) } = sinc(pi t) e^(j t 10)$])
 ]
 
+
+#pagebreak()
 
 #problem(4, [Use duality to prove the following.])
 
