@@ -313,10 +313,30 @@ transform of the spectra depicted below.])
 #subproblem("A", [#image("figs/5a.png", width:50%)])
 
 #block(inset: 1em)[
+  $X(omega) = "rect"((omega + 4)/2) + "rect"((omega - 4)/2)$
+
+  $F^(-1){X(omega)} = F^(-1){"rect"((omega + 4)/2) + "rect"((omega - 4)/2)}$
+
+  #h(58pt) $= 1/pi sinc(t) e^(j 4 t) + 1/pi sinc(t) e^(-j 4 t)$
+
+  #h(58pt) $= 1/pi sinc(t) (e^(j 4 t) + e^(-j 4 t))$
+
+  #h(58pt) $= 2/pi sinc(t) (e^(j 4 t) + e^(-j 4 t))/2$
+
+  #ans([ $F^(-1){X(omega)} = 2/pi sinc(t) dot cos(4t)$ ])
 ]
 
 #subproblem("B", [#image("figs/5b.png", width:50%)])
 
 #block(inset: 1em)[
+  $X(omega) = Delta((omega + 4)/4) + Delta((omega - 4)/4)$
+
+  $F^(-1){X(omega)} = F^(-1){Delta((omega + 4)/4) + Delta((omega - 4)/4)}$
+
+  #h(59pt) $= 1/pi sinc^2(t) e^(j 4 t) + 1/pi sinc^2(t) e^(-j 4 t)$
+
+  #h(59pt) $= 2/pi sinc^2(t) dot cos(4 t)$
+
+  #ans([ $F^(-1){X(omega)} = 2/pi sinc^2(t) dot cos(4 t)$ ])
 ]
 
