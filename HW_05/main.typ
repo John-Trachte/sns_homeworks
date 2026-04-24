@@ -245,16 +245,67 @@ t)$])
 
 #problem(4, [Use duality to prove the following.])
 
-#subproblem("A", [$1 / 2 [delta(t) + j / (pi t) <=> u(omega)]$])
+#subproblem("A", [$1 / 2 [delta(t) + j / (pi t)] <=> u(omega)$])
 
 #block(inset: 1em)[
+  Because $1 / 2 [delta(t) + j / (pi t)] <=> u(omega)$, it can be seen that
+  $x(t) = 1 / 2 [delta(t) + j / (pi t)]$ and $X(omega) = u(omega)$.
+
+  Applying duality, $F{X(t)} = F{u(t)} = pi delta(omega) + 1/(j omega)$.
+
+  $pi delta(omega) + 1/(j omega) = (2 pi) [delta(omega)/2 + 1/(2 j omega pi)]$
+
+  #h(55pt) $= (2 pi) [1/2 [delta(omega) - j/(omega pi)]]$
+
+  Replacing $omega$ with $-omega$, it can be seen that $pi delta(-omega) +
+  1/(-j omega) = 2 pi [1/2 [delta(-omega) + j/(pi omega)]]$.
+
+  Because $delta(omega)$ is an even function, $delta(-omega) = delta(omega)$,
+  so
+
+  $2 pi [1/2 [delta(-omega) + j/(pi omega)]] = 2 pi [1/2 [delta(omega) +
+  j/(pi omega)]] = 2 pi x(-omega)$.
+
+  #ans([ Therefore, $X(t) <=> 2 pi x(-omega)$. #h(5pt) #sym.ballot ])
 ]
 
 #subproblem("B", [$delta(t + T) - delta(t - T) <=> 2 j sin(T omega)$])
 
 #block(inset: 1em)[
+  $X(omega) = j 2 sin(T omega)$
+
+  Applying duality, $F{X(t)} = F{j 2 sin(T t)}$
+
+  $F{j 2 sin(T t)} = j 2(-j pi delta(omega - omega_0) + j pi delta(omega +
+  omega_0))$
+
+  #h(69pt) $= -2 pi(delta(omega + omega_0) - delta(omega - omega_0))$
+
+  #h(69pt) $= 2 pi(delta(omega - omega_0) - delta(omega + omega_0))$
+
+  Replacing $omega$ with $-omega$, $j 2(-j pi delta(-omega - omega_0) + j pi
+  delta(-omega + omega_0)) = 2 pi(delta(-omega - omega_0) - delta(-omega +
+  omega_0)) = 2 pi(delta(omega + omega_0) - delta(omega - omega_0)) = 2 pi
+  x(-omega)$
+
+  //$x(t) = delta(t + T) - delta(t - T)$
+
+  //$F{x(t)} = integral_(-oo)^(oo) x(t) e^(-j omega t) d t$ 
+
+  //#h(41pt) $= integral_(-oo)^(oo) delta(t + T) e^(-j omega t) d t -
+  //integral_(-oo)^(oo) delta(t - T) e^(-j omega t) d t$
+
+  //#h(41pt) $= e^(j omega T) - e^(-j omega T)$
+
+  //#h(41pt) $= j 2 (e^(j omega T) - e^(-j omega T))/(j 2)$
+
+  //#h(41pt) $= j 2 sin(T omega)$
+
+  #ans([ Therefore, $X(t) <=> 2 pi x(-omega)$. #h(5pt) #sym.ballot ])
 ]
 
+
+#pagebreak()
 
 #problem(5, [Use the frequency-shifting property to find the inverse Fourier
 transform of the spectra depicted below.])
