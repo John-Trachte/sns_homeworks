@@ -115,7 +115,7 @@ Processing and Linear Systems_) to determine your answer.])
    #h(51pt) $= sum_(m=0)^n e^(-m) u[m + 1] (-2)^(n - m) u[n - m - 1]$
 
    If $m <= n$, $u[n - m - 1] = 1" "forall" "m < n$; otherwise, $u[n - m - 1] =
-   u[n - n - 1] = u[-1] = 0$. Likewise, $x[n] != 0" "forall" "n >= -1$.
+   u[n - (n + n_1) - 1] = u[-(1 + n_0)] = 0$. Likewise, $x[n] != 0" "forall" "n >= -1$.
    Therefore, $x[n] convolve h[n] = sum_(m = -1)^(n-1) e^(-m) (-2)^(n - m)$
 
    $x[n] convolve h[n] = (-2)^n sum_(m = -1)^(n-1) e^(-m) (-2)^(-m)$
@@ -124,39 +124,321 @@ Processing and Linear Systems_) to determine your answer.])
 
    #h(51pt) $= (-2)^n sum_(m = -1)^(n-1) (1 / (-2 e))^(m)$
 
-   #h(51pt) $= (-2)^n ((1 / (-2e))^n - (1 / (-2e))^(-1)) / (1 / (-2e) - 1)$
+   #h(51pt) $= (-2)^n sum_(m = 0)^(n) (1 / (-2 e))^(m - 1)$
 
-   #h(51pt) $= (-2)^n ((1 / (-2e))^n + 2e) / ((1 + 2e) / (-2e))$
+   #h(51pt) $= (-2)^n sum_(m = 0)^(n) (1 / (-2 e))^(m) (1 / (-2 e))^(-1)$
 
-   #h(51pt) $= e(-2)^(n + 1) ((1 / (-2e))^n + 2e) / (1 + 2e)$
+   #h(51pt) $= -2 e (-2)^n sum_(m = 0)^(n) (1 / (-2 e))^(m)$
+    
+   #h(51pt) $= e (-2)^(n + 1) sum_(m = 0)^(n) (1 / (-2 e))^(m)$
 
-   //#h(51pt) $= ((1 / e)^n + 2e(-2)^n) / ((1 + 2e) / (-2e))$
-//
-   //#h(51pt) $= (-2e(1 / e)^(n) + 2e^2(-2)^(n + 1)) / (1 + 2e)$
+   #h(51pt) $= e (-2)^(n + 1) ((1 / (-2 e))^(n + 1) - (1 / (-2 e))^0) / (1 /
+   (-2 e) - 1)$
 
-   //#h(51pt) $= (((-2) / (-2e))^n - (-2)^n) / ((1 + 2e) / (-2e))$
-//
-   //#h(51pt) $= ((1 / (e))^n - (-2)^n) / ((1 + 2e) / (-2e))$
-//
-   //#h(51pt) $= ((1 / (e))^n - e(-2)^(n + 1)) / (1 + 2e)$
+   #h(51pt) $= e (-2)^(n + 1) ((1 / (-2 e))^(n + 1) - 1) / (1 / (-2 e) - 1)$
+   
+   #h(51pt) $= e (-2)^(n + 1) ((1 / (-2 e))^(n + 1) - 1) / ((1 + 2 e)/ (-2 e))$
+
+   #h(51pt) $= -2 e^2 (-2)^(n + 1) ((-2 e)^(-(n + 1)) - 1) / (1 + 2 e)$
+   
+   #h(51pt) $= -2 e^2  ((e)^(-(n + 1)) - (-2)^(n + 1)) / (1 + 2 e)$
+
+   #h(51pt) $= (-2 e^2) / (2 e) ((e)^(-(n + 1)) - (-2)^(n + 1)) / (1 / (2 e) +
+   1)$
+
+   #h(51pt) $= e ((-2)^(n + 1) - (e)^(-(n + 1))) / (1 / (2 e) + 1)$
+
+   #h(51pt) $= ((-2)^(n + 1)e - (e)^(-n)) / (1 / (2 e) + 1)$
+   
+   $x[n] convolve h[n] = ((-2)^(n + 1)e - (e)^(-n)) / (1 / (2 e) + 1)$
 
    #v(10pt)
 
    To apply the convolutions prepared in Table 3.1, rewrite $x[n] = (1 / e)^n
-   u[n + 1]$. Sum 4 can then be applied:
+   u[n + 1] = e (1 / e)^(n + 1) u[n]$, and $h[n] = ()(-2)^(n) u[n]$. Sum 4 can
+   then be applied:
 
-   $x[n] convolve h[n] = ((1 / e)^(n + 1) - (-2)^(n + 1)) / (1 / e + 2) u[n]$
+   $x[n] convolve h[n] = ((1 / e)^(n + 1) - (-2)^(n + 1)) / (1 / e - (-2))
+   u[n]$
 
    #h(51pt) $= ((1 / e)^(n + 1) - (-2)^(n + 1)) / ((1 + 2 e) / e) u[n]$
 
-   #h(51pt) $= ((1 / e)^(n) - e(-2)^(n + 1)) / (1 + 2 e) u[n]$
-
-   //#h(51pt) $= ((1)^(n + 1) - (-2e)^(n + 1)) / (1 + 2 e) u[n]$
-//
-   //#h(51pt) $= (1 - (-2e)^(n + 1)) / (1 + 2 e) u[n]$
+   #h(51pt) $= (e^(-n) - (-2)^(n + 1)e) / (1 + 2 e) u[n]$
 ]
 
 #pagebreak()
 
 #problem(4, [Use the sliding tape algorithm to determine $x[n] convolve g[n]$.
 #align(center)[ #image("figs/q4.png") ] ])
+
+#block(inset: 1em)[
+  $x[m]$ has equivalent values to $x[n]$ at $m = n$; therefore, the graph of
+  $x[m]$ is equivalent to the graph of $x[n]$. The same is true for $g[n]$.
+  Because $g[n] = g[m]$ is an even function, the representation of $g[-m]$ is
+  the same as that of $g[m] = g[n]$.
+
+  #v(20pt)
+
+  For $n = 0$, the sliding tape algorithm provides the following ($x[m]$ tape
+  above $g[n-m]$ tape):
+
+  #table(
+      columns: (auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto),
+      align: center,
+      table.header(
+          [...], [0], [0], [1], [2], [3], [4], [5], [0], [0], [0], [0], [0], [0], [0], [0], [0], [5], [4], [3], [2], [1], [0], [0], [...],
+          [...], [0], [0], [0], [0], [0], [0], [5], [0], [0], [0], [0], [0], [0], [0], [0], [0], [5], [0], [0], [0], [0], [0], [0], [...],
+      )
+  )
+
+  $c[0] = 5 dot 5 + 5 dot 5 = 50$
+
+  #v(20pt)
+
+  For $n != 0$, the symmetry of $g[n]$ implies that $c[n] = c[-n]$. The process
+  for $n < 0$ will be shown below.
+
+  $n = plus.minus 1$
+
+  #table(
+      columns: (auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto),
+      align: center,
+      table.header(
+          [...], [0], [0], [1], [2], [3], [4], [5], [0], [0], [0], [0], [0], [0], [0], [0], [0], [5], [4], [3], [2], [1], [0], [0], [...],
+          [...], [0], [0], [0], [0], [0], [5], [0], [0], [0], [0], [0], [0], [0], [0], [0], [5], [0], [0], [0], [0], [0], [0], [0], [...],
+      )
+  )
+
+  $c[plus.minus 1] = 4 dot 5 = 20$
+
+  #v(20pt)
+
+  $n = plus.minus 2$
+
+  #table(
+      columns: (auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto),
+      align: center,
+      table.header(
+          [...], [0], [0], [1], [2], [3], [4], [5], [0], [0], [0], [0], [0], [0], [0], [0], [0], [5], [4], [3], [2], [1], [0], [0], [...],
+          [...], [0], [0], [0], [0], [5], [0], [0], [0], [0], [0], [0], [0], [0], [0], [5], [0], [0], [0], [0], [0], [0], [0], [0], [...],
+      )
+  )
+
+  $c[plus.minus 2] = 3 dot 5 = 15$
+
+  #v(20pt)
+
+  $n = plus.minus 3$
+
+  #table(
+      columns: (auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto),
+      align: center,
+      table.header(
+          [...], [0], [0], [1], [2], [3], [4], [5], [0], [0], [0], [0], [0], [0], [0], [0], [0], [5], [4], [3], [2], [1], [0], [0], [...],
+          [...], [0], [0], [0], [5], [0], [0], [0], [0], [0], [0], [0], [0], [0], [5], [0], [0], [0], [0], [0], [0], [0], [0], [0], [...],
+      )
+  )
+
+  $c[plus.minus 2] = 2 dot 5 = 10$
+
+  #colbreak()
+
+  $n = plus.minus 4$
+
+  #table(
+      columns: (auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto),
+      align: center,
+      table.header(
+          [...], [0], [0], [1], [2], [3], [4], [5], [0], [0], [0], [0], [0], [0], [0], [0], [0], [5], [4], [3], [2], [1], [0], [0], [...],
+          [...], [0], [0], [5], [0], [0], [0], [0], [0], [0], [0], [0], [0], [5], [0], [0], [0], [0], [0], [0], [0], [0], [0], [0], [...],
+      )
+  )
+
+  $c[plus.minus 4] = 1 dot 5 = 5$
+
+  #v(20pt)
+
+  $n = plus.minus 5$
+
+  #table(
+      columns: (auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto),
+      align: center,
+      table.header(
+          [...], [0], [0], [1], [2], [3], [4], [5], [0], [0], [0], [0], [0], [0], [0], [0], [0], [5], [4], [3], [2], [1], [0], [0], [...],
+          [...], [0], [5], [0], [0], [0], [0], [0], [0], [0], [0], [0], [5], [0], [0], [0], [0], [0], [0], [0], [0], [0], [0], [0], [...],
+      )
+  )
+
+  $c[plus.minus 5] = 0$
+
+  #v(20pt)
+
+  $n = plus.minus 6$
+
+  #table(
+      columns: (auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto),
+      align: center,
+      table.header(
+          [...], [0], [0], [1], [2], [3], [4], [5], [0], [0], [0], [0], [0], [0], [0], [0], [0], [5], [4], [3], [2], [1], [0], [0], [...],
+          [...], [5], [0], [0], [0], [0], [0], [0], [0], [0], [0], [5], [0], [0], [0], [0], [0], [0], [0], [0], [0], [0], [0], [0], [...],
+      )
+  )
+
+  $c[plus.minus 6] = 0$
+
+  #v(20pt)
+
+  $n = plus.minus 7$
+
+  #table(
+      columns: (auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto),
+      align: center,
+      table.header(
+          [...], [0], [0], [1], [2], [3], [4], [5], [0], [0], [0], [0], [0], [0], [0], [0], [0], [5], [4], [3], [2], [1], [0], [0], [...],
+          [...], [0], [0], [0], [0], [0], [0], [0], [0], [0], [5], [0], [0], [0], [0], [0], [0], [0], [0], [0], [0], [0], [0], [0], [...],
+      )
+  )
+
+  $c[plus.minus 7] = 0$
+
+  #v(20pt)
+
+  $n = plus.minus 8$
+
+  #table(
+      columns: (auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto),
+      align: center,
+      table.header(
+          [...], [0], [0], [1], [2], [3], [4], [5], [0], [0], [0], [0], [0], [0], [0], [0], [0], [5], [4], [3], [2], [1], [0], [0], [...],
+          [...], [0], [0], [0], [0], [0], [0], [0], [0], [5], [0], [0], [0], [0], [0], [0], [0], [0], [0], [0], [0], [0], [0], [0], [...],
+      )
+  )
+
+  $c[plus.minus 8] = 0$
+
+  #v(20pt)
+
+  $n = plus.minus 9$
+
+  #table(
+      columns: (auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto),
+      align: center,
+      table.header(
+          [...], [0], [0], [1], [2], [3], [4], [5], [0], [0], [0], [0], [0], [0], [0], [0], [0], [5], [4], [3], [2], [1], [0], [0], [...],
+          [...], [0], [0], [0], [0], [0], [0], [0], [5], [0], [0], [0], [0], [0], [0], [0], [0], [0], [0], [0], [0], [0], [0], [0], [...],
+      )
+  )
+
+  $c[plus.minus 9] = 0$
+
+  #colbreak()
+
+  $n = plus.minus 10$
+
+  #table(
+      columns: (auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto),
+      align: center,
+      table.header(
+          [...], [0], [0], [1], [2], [3], [4], [5], [0], [0], [0], [0], [0], [0], [0], [0], [0], [5], [4], [3], [2], [1], [0], [0], [...],
+          [...], [0], [0], [0], [0], [0], [0], [5], [0], [0], [0], [0], [0], [0], [0], [0], [0], [0], [0], [0], [0], [0], [0], [0], [...],
+      )
+  )
+
+  $c[plus.minus 10] = 5 dot 5 = 25$
+
+  #v(20pt)
+
+  $n = plus.minus 11$
+
+  #table(
+      columns: (auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto),
+      align: center,
+      table.header(
+          [...], [0], [0], [1], [2], [3], [4], [5], [0], [0], [0], [0], [0], [0], [0], [0], [0], [5], [4], [3], [2], [1], [0], [0], [...],
+          [...], [0], [0], [0], [0], [0], [5], [0], [0], [0], [0], [0], [0], [0], [0], [0], [0], [0], [0], [0], [0], [0], [0], [0], [...],
+      )
+  )
+
+  $c[plus.minus 11] = 4 dot 5 = 20$
+
+  #v(20pt)
+
+  $n = plus.minus 12$
+
+  #table(
+      columns: (auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto),
+      align: center,
+      table.header(
+          [...], [0], [0], [1], [2], [3], [4], [5], [0], [0], [0], [0], [0], [0], [0], [0], [0], [5], [4], [3], [2], [1], [0], [0], [...],
+          [...], [0], [0], [0], [0], [5], [0], [0], [0], [0], [0], [0], [0], [0], [0], [0], [0], [0], [0], [0], [0], [0], [0], [0], [...],
+      )
+  )
+
+  $c[plus.minus 12] = 3 dot 5 = 15$
+
+  #v(20pt)
+
+  $n = plus.minus 13$
+
+  #table(
+      columns: (auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto),
+      align: center,
+      table.header(
+          [...], [0], [0], [1], [2], [3], [4], [5], [0], [0], [0], [0], [0], [0], [0], [0], [0], [5], [4], [3], [2], [1], [0], [0], [...],
+          [...], [0], [0], [0], [5], [0], [0], [0], [0], [0], [0], [0], [0], [0], [0], [0], [0], [0], [0], [0], [0], [0], [0], [0], [...],
+      )
+  )
+
+  $c[plus.minus 13] = 2 dot 5 = 10$
+
+  #v(20pt)
+
+  $n = plus.minus 14$
+
+  #table(
+      columns: (auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto),
+      align: center,
+      table.header(
+          [...], [0], [0], [1], [2], [3], [4], [5], [0], [0], [0], [0], [0], [0], [0], [0], [0], [5], [4], [3], [2], [1], [0], [0], [...],
+          [...], [0], [0], [5], [0], [0], [0], [0], [0], [0], [0], [0], [0], [0], [0], [0], [0], [0], [0], [0], [0], [0], [0], [0], [...],
+      )
+  )
+
+  $c[plus.minus 14] = 1 dot 5 = 5$
+
+  #v(20pt)
+
+  $|n| >= 15$
+
+  #table(
+      columns: (auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto),
+      align: center,
+      table.header(
+          [...], [0], [0], [1], [2], [3], [4], [5], [0], [0], [0], [0], [0], [0], [0], [0], [0], [5], [4], [3], [2], [1], [0], [0], [...],
+          [...], [0], [5], [0], [0], [0], [0], [0], [0], [0], [0], [0], [0], [0], [0], [0], [0], [0], [0], [0], [0], [0], [0], [0], [...],
+      )
+  )
+
+  $c[plus.minus 15] = 0$
+
+  #colbreak()
+
+  $c[n]$ can then be graphed as below:
+
+  #align(center)[
+    #lq.diagram(
+      width: 18cm,
+      height: 4cm,
+      xaxis: (tick-distance: 1, label: $n$),
+      yaxis: (label: $c[n]$),
+    
+      // c[n]
+      lq.stem(
+        (-14, -13, -12, -11, -10, -4, -3, -2, -1,  0,  1,  2,  3, 4, 10, 11, 12, 13, 14),
+        (  5,  10,  15,  20,  25,  5, 10, 15, 20, 50, 20, 15, 10, 5, 25, 20, 15, 10,  5),
+        stroke: (paint: blue, thickness: 2pt),
+        mark: none,
+      ),
+    )
+  ]
+]
